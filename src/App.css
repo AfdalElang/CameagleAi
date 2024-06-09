@@ -78,3 +78,7 @@ pre {
 code {
   color: #8be9fd;
 }
+
+ol li {
+  margin: 1rem 0;
+}
