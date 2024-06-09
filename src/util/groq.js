@@ -20,7 +20,8 @@ export const requestToGroqAI = async (content) => {
         content
       }
     ],
-    model: 'llama3-70b-8192'
+    model: 'llama3-70b-8192',
+    temperature: 0.7
   })
   const answer = marked(reply.choices[0].message.content)
   return answer
