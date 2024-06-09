@@ -1,37 +1,63 @@
+import './App.css'
+import { requestToGroqAI } from './util/groq'
+import { useState } from 'react'
 
-import './App.css';
-import { requestToGroqAI } from "./util/groq";
-import {useState} from "react";
-import {Light as SyntaxHighlight} from "react-syntax-highlighter";
-import {darcula} from"react-syntax-highlighter/dist/cjs/styles/prism";
 function App() {
-  const [data, setData] = useState("");
-  const handleSubmit = async() => {
-    const ai = await requestToGroqAI(content.value);
-    setData(ai);
-  };
+  const [inputValue, setInputValue] = useState('')
+  const [data, setData] = useState('')
+
+  const handleSubmit = async () => {
+    try {
+      const aiResponse = await requestToGroqAI(inputValue)
+      setData(aiResponse)
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
+  }
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      handleSubmit()
+    }
+  }
+
   return (
-    <main className="flex flex-col min-h-[80vh] justify-center items-center max-w-xl w-full mx-auto">
-      <h1 className="text-4xl text-indigo-500">Cameagle      |     AI</h1>
-      <form className="flex flex-col gap-4 py-4 w-full">
-        <input placeholder="ketik perimintaan disini..."
-        className="py-2 px-4 text-md rounded-md"
-        id="content"
-        type="text"
+    <main className='flex flex-col min-h-[80vh] justify-center items-center max-w-xl w-full mx-auto'>
+      <h1 className='text-4xl text-indigo-500'>Cameagle | AI</h1>
+      <form
+        className='flex flex-col w-full gap-4 py-4'
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleSubmit()
+        }}
+      >
+        <input
+          placeholder='Ketik permintaan di sini...'
+          className='px-4 py-2 rounded-md text-md'
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyPress={handleKeyPress}
+          type='text'
         />
-        <button 
-        className="bg-indigo-500 py-2 px-4 font-bold text-white rounded-md"
-        onClick={handleSubmit}
-        type="button"
+        <button
+          className='px-4 py-2 font-bold text-white bg-indigo-500 rounded-md'
+          type='submit'
+          onClick={handleSubmit}
         >
           Kirim
-          </button>
+        </button>
       </form>
-      <div className='max-w-xl w-full mx-auto'>
-        {data ?
-      <SyntaxHighlight style={darcula} className='text-white' wrapLongLines={true}>{data.toString()}</SyntaxHighlight> : null}
+      <div className='w-full max-w-xl mx-auto'>
+        {data ? (
+          <div
+            className='w-[100%] h-fit text-white bg-[#383A59] rounded-md p-5 text-left'
+            dangerouslySetInnerHTML={{ __html: data }}
+          />
+        ) : null}
       </div>
     </main>
   )
 }
+
 export default App
