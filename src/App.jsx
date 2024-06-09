@@ -12,7 +12,7 @@ function App() {
   };
   return (
     <main className="flex flex-col min-h-[80vh] justify-center items-center max-w-xl w-full mx-auto">
-      <h1 className="text-4xl text-indigo-500">AFDAL      |     AI</h1>
+      <h1 className="text-4xl text-indigo-500">Cameagle      |     AI</h1>
       <form className="flex flex-col gap-4 py-4 w-full">
         <input placeholder="ketik perimintaan disini..."
         className="py-2 px-4 text-md rounded-md"
