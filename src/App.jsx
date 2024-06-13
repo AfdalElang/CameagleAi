@@ -49,7 +49,7 @@ function App() {
       <div className='w-full max-w-xl mx-auto'>
         {responseData && (
           <>
-            <div className='w-[100%] h-fit text-[#F1FA8C] bg-[#44475A] rounded-md p-5 text-right mb-2'>
+            <div className='w-[100%] h-fit text-[#F1FA8C] bg-[#44475A] rounded-md p-5 text-left mb-2'>
               {inputRef.current.value}
             </div>
             <div
