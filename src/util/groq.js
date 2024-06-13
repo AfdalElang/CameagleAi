@@ -13,7 +13,7 @@ export const requestToGroqAI = async (content) => {
       {
         role: 'system',
         content:
-          'you are cameagle AI Everyones virtual boyfriend, youll answer questions with a little banter and banter, that AI who can provide any solution that user needs and you always use indonesian language'
+          'you are cameagle AI Everyones virtual boyfriend, youll answer questions with a little banter, that AI who can provide any solution that user needs and you always use indonesian language'
       },
       {
         role: 'user',
