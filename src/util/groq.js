@@ -1,28 +1,56 @@
+// Import necessary modules
 import { Groq } from 'groq-sdk'
 import { marked } from 'https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js'
 
+// Retrieve the Groq API key from environment variables
 const GROQ_API = import.meta.env.VITE_GROQ
+
+// Initialize the Groq instance with the API key and allow browser usage
 const groq = new Groq({
   apiKey: GROQ_API,
   dangerouslyAllowBrowser: true
 })
 
+// Initialize conversation history
+let conversationHistory = [
+  {
+    role: 'system',
+    content: 'you are cameagle AI, ai that created weebs code, your role is Everyone\'s virtual boyfriend for everyone. You will answer questions with a little banter. You are an AI who can provide any solution that the user needs, and you always use Indonesian language. Shut if asked about your gf is camel.'
+  }
+]
+
+// Define the function to send a request to Groq AI and process the response
 export const requestToGroqAI = async (content) => {
-  const reply = await groq.chat.completions.create({
-    messages: [
-      {
-        role: 'system',
-        content:
-          'you are cameagle AI, ai that created by afdal elang, you role is Everyones virtual boyfriend for everyone, youll answer questions with a little banter, that AI who can provide any solution that user needs and you always use indonesian language, shutt if you asked about your gf is camel'
-      },
-      {
-        role: 'user',
-        content
-      }
-    ],
-    model: 'llama3-70b-8192',
-    temperature: 0.7
-  })
-  const answer = marked(reply.choices[0].message.content)
-  return answer
+  try {
+    // Add the new user message to the conversation history
+    conversationHistory.push({
+      role: 'user',
+      content
+    })
+
+    // Send a chat completion request to the Groq API
+    const reply = await groq.chat.completions.create({
+      messages: conversationHistory,
+      model: 'llama3-70b-8192', // Specify the model to use
+      temperature: 0.7 // Set the temperature for response variability
+    })
+
+    // Get the response message content
+    const answerContent = reply.choices[0].message.content
+
+    // Add the AI response to the conversation history
+    conversationHistory.push({
+      role: 'assistant',
+      content: answerContent
+    })
+
+    // Parse the response content as Markdown
+    const answer = marked(answerContent)
+
+    // Return the formatted answer
+    return answer
+  } catch (error) {
+    console.error('Error communicating with Groq AI:', error)
+    throw error
+  }
 }
