@@ -31,7 +31,7 @@ export const requestToGroqAI = async (content) => {
     // Send a chat completion request to the Groq API
     const reply = await groq.chat.completions.create({
       messages: conversationHistory,
-      model: 'llama3-70b-8192', // Specify the model to use
+      model: 'mixtral-8x7b-32768', // Specify the model to use
       temperature: 0.7 // Set the temperature for response variability
     })
 
