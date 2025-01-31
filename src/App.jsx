@@ -43,10 +43,10 @@ function App() {
 
   return (
     <main className='flex flex-col min-h-[80vh] justify-center items-center max-w-xl w-full mx-auto'>
-      <h1 className='text-4xl text-indigo-500'>Cameagle | AI</h1>
+      <h1 className='text-4xl text-indigo-500'>SKIN | AI</h1>
       <form className='flex flex-col w-full gap-4 py-4' onSubmit={handleSubmit}>
         <input
-          placeholder='Ketik permintaan di sini...'
+          placeholder='Konsultasikan dirimu dengan SKIN...'
           className='px-4 py-2 rounded-md text-md'
           value={inputValue}
           onChange={handleInputChange}
