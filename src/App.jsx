@@ -71,7 +71,7 @@ function App() {
                 className={`absolute bottom-2 right-2 px-2 py-1 text-sm text-white rounded-md ${copiedIndex === index ? 'bg-green-500' : 'bg-indigo-500'}`}
                 onClick={() => handleCopy(index, entry.ai)}
               >
-                {copiedIndex === index ? 'Copied!' : 'Copy'}
+                {copiedIndex === index ? 'Submited!' : 'Submit'}
               </button>
             </div>
           </div>
